@@ -24,11 +24,11 @@ provider:
   # Use these variables in the functions and resouorces section below. For example, 
   # ${self:provider.environment.ATTACHMENT_S3_BUCKET}
   environment:
-    TODOS_TABLE: serverless-c4-todo-app4-${self:provider.stage}
+    TODOS_TABLE: serverless-c4-todo-app5-${self:provider.stage}
     TODOS_CREATED_AT_INDEX: CreatedAtIndex
-    ATTACHMENT_S3_BUCKET: serverless-c4-todo-app4-images-${self:provider.stage}
+    ATTACHMENT_S3_BUCKET: serverless-c4-todo-app5-images-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
-    PROJECT_NAME: serverless-todo-app4
+    PROJECT_NAME: serverless-todo-app5
     INDEX_NAME: ${self.provider.environment.TODOS_CREATED_AT_INDEX}
 
   logs:
