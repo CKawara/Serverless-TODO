@@ -1,5 +1,5 @@
-import { TodosAccess } from './todosAcess'
-import { AttachmentUtils } from './attachmentUtils';
+import { TodosAccess } from '../dataLayer/todosAcess'
+import { AttachmentUtils } from '../helpers/attachmentUtils';
 import { TodoItem } from '../models/TodoItem'
 import { CreateTodoRequest } from '../requests/CreateTodoRequest'
 import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
@@ -21,12 +21,14 @@ export async function createTodo(
 
     const todoId = uuid.v4()
     const createdAt = new Date().toISOString()
+    const s3AttachementUrl = attachmentUtils.getAttachmentUrl(todoId)
     const newItem = {
-    userId,
-    todoId,
-    createdAt,
-    done: false,
-    ...newTodo
+        userId,
+        todoId,
+        createdAt,
+        done: false,
+        s3AttachementUrl: s3AttachementUrl,
+        ...newTodo
     }
     return await todoAccess.createTodoItem(newItem)
 }
