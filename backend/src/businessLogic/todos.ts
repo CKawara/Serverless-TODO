@@ -10,7 +10,13 @@ import * as createError from 'http-errors'
 // TODO: Implement businessLogic
 const logger = createLogger('TodosAccess')
 const attachmentUtils = new AttachmentUtils()
-const todoAccess = new TodosAccess()
+const todosAccess = new TodosAccess()
+
+// get todos function
+export async function getTodosForUser(userId: string): Promise<TodoItem[]> {
+    logger.info('Get todos function called')
+    return todosAccess.getAllTodos(userId)
+}
 
 // create todo function
 export async function createTodo(

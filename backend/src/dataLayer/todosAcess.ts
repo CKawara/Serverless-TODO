@@ -33,6 +33,7 @@ export class TodosAccess{
         const items = result.Items
         return items as TodoItem[]
     }
+    
     async createTodoItem(todoItem: TodoItem): Promise<TodoItem>{
         logger .info ('Create todo item function called')
 
