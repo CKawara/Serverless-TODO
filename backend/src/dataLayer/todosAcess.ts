@@ -33,7 +33,7 @@ export class TodosAccess{
         const items = result.Items
         return items as TodoItem[]
     }
-    
+
     async createTodoItem(todoItem: TodoItem): Promise<TodoItem>{
         logger .info ('Create todo item function called')
 
@@ -47,5 +47,53 @@ export class TodosAccess{
 
         return todoItem as TodoItem 
     } 
+
+    async updateTodoItem(
+        userId: string,
+        todoId: string,
+        todoUpdate: TodoUpdate
+    ): Promise<TodoUpdate> {
+        logger.info('update todo item function called')
+
+        const result = await this.docClient
+        .update({
+            TableName: this.todosTable,
+            Key: {
+                todoId,
+                userId
+            },
+            UpdateExpression: 'set #name = :name, dueDate = :dueDate, done = :done',
+            ExpressionAttributeValues: {
+                ':name': todoUpdate.name,
+                ':dueDate': todoUpdate.dueDate,
+                ':done': todoUpdate.done
+            },
+            ExpressionAttributeNames: {
+                '#name': 'name'
+            },
+            ReturnValues: 'ALL_NEW'
+        })
+        .promise()
+
+        const todoItemUpdate = result.Attributes
+        logger.info('Todo item updated', todoItemUpdate)
+        return todoItemUpdate as TodoUpdate
+    }
     
+    async deleteTodoItem(todoId: string, userId: string): Promise<string> {
+        logger.info('Delete todo item function called')
+
+        const result = await this.docClient
+        .delete({
+            TableName: this.todosTable,
+            Key: {
+                todoId,
+                userId
+            }
+        })
+        .promise()
+        logger.info('Todo item deleted', result)
+        return todoId as string
+    }
+
 } 

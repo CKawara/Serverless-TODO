@@ -19,7 +19,7 @@ export class AttachmentUtils{
 
     getUploadUrl(todoId: string): string{
         const url = this.s3.getSignedUrl('putObject',{
-             Bucket: this.bucketName,
+            Bucket: this.bucketName,
             Key: todoId,
             Expires: urlExpriration
         })
