@@ -5,7 +5,7 @@ import { CreateTodoRequest } from '../requests/CreateTodoRequest'
 import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
 import { createLogger } from '../utils/logger'
 import * as uuid from 'uuid'
-import * as createError from 'http-errors'
+// import * as createError from 'http-errors'
 
 // TODO: Implement businessLogic
 const logger = createLogger('TodosAccess')
@@ -14,8 +14,8 @@ const todosAccess = new TodosAccess()
 
 // get todos function
 export async function getTodosForUser(userId: string): Promise<TodoItem[]> {
-    logger.info('Get todos function called')
-    return todosAccess.getAllTodos(userId)
+    logger.info(`Getting todos for user: ${userId}`)
+    return await todosAccess.getAllTodos(userId)
 }
 
 // create todo function
